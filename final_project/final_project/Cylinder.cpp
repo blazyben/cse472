@@ -82,6 +82,7 @@ void CCylinder::Draw()
 	}
 
 	for (int i=0; i<rings.size()-1; i++) {
+
 		for (int j=0; j<rings[i].size(); j++) {
 			glBegin(GL_QUADS);
 
@@ -93,20 +94,27 @@ void CCylinder::Draw()
 			glNormal3d(abxac[0], abxac[1], abxac[2]);
 
 			// Bottom left corner
+			glTexCoord2f((float)i/(float)rings.size(), rings[i][j].m_bottom.m_angle/(2*GR_PI));
 			glVertex3f(rings[i][j].m_bottom.m_x,rings[i][j].m_bottom.m_y,rings[i][j].m_bottom.m_z);
 
 			// Bottom right corner
+			glTexCoord2f(((float)i+1.)/(float)rings.size(), rings[i+1][j].m_bottom.m_angle/(2*GR_PI));
 			glVertex3f(rings[i+1][j].m_bottom.m_x,rings[i+1][j].m_bottom.m_y,rings[i+1][j].m_bottom.m_z);
 
 			// Top right corner
+			glTexCoord2f(((float)i+1.)/(float)rings.size(), rings[i+1][j].m_top.m_angle/(2*GR_PI));
 			glVertex3f(rings[i+1][j].m_top.m_x,rings[i+1][j].m_top.m_y,rings[i+1][j].m_top.m_z);
 
 			// Top left corner
+			glTexCoord2f((float)i/(float)rings.size(), rings[i][j].m_top.m_angle/(2*GR_PI));
 			glVertex3f(rings[i][j].m_top.m_x,rings[i][j].m_top.m_y,rings[i][j].m_top.m_z);
+
 			glEnd();
 		}
 	}
-	
+
+	glDisable(GL_TEXTURE_2D);
+
 	glBegin(GL_POLYGON);
 	glNormal3d(-1, 0, 0);
 	for (int i=0; i<rings[0].size(); i++) {

@@ -25,8 +25,9 @@ CChildView::CChildView()
 	m_spinindex = 0;
 
     SetDoubleBuffer(true);
-	//m_woodgrain.LoadFile(L"textures/woodgrain.jpg");
-	//m_cylinder.SetTexture(&m_woodgrain);
+	
+	m_woodgrain.LoadFile(L"textures/real_woodgrain.jpg");
+	m_cylinder.SetTexture(&m_woodgrain);
 }
 
 CChildView::~CChildView()
