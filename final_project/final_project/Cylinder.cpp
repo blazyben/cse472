@@ -15,7 +15,7 @@ CCylinder::CCylinder(void)
 {
 	m_radius = 3;
 	m_length = 50;
-	m_lengthSteps = 50;
+	m_lengthSteps = m_length;
 	m_circumSteps = 50;
 
 	InitRings();
@@ -62,7 +62,7 @@ double length3dv(double *v)
 {
    return sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
 }
-
+ 
 void normal(double *v1, double *v2, double *normal)
 {
    GLdouble v1xv2[] = {v1[1] * v2[2] - v2[1] * v1[2], v1[2] * v2[0] - v2[2] * v1[0], v1[0] * v2[1] - v2[0] * v1[1]};
@@ -128,7 +128,9 @@ void CCylinder::Draw()
 		glVertex3f(rings[rings.size()-1][i].m_bottom.m_x,rings[rings.size()-1][i].m_bottom.m_y,rings[rings.size()-1][i].m_bottom.m_z);
 		glVertex3f(rings[rings.size()-1][i].m_top.m_x,rings[rings.size()-1][i].m_top.m_y,rings[rings.size()-1][i].m_top.m_z);
 	}
+	
 	glEnd();
+	glDisable(GL_TEXTURE_2D);
 }
 
 void CCylinder::CylinderVertex(double angle, double radius, double *vertex, double *normal)

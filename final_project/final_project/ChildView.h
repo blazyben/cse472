@@ -15,6 +15,7 @@
 #include "Torus.h"
 #include "Cylinder.h"
 #include "Chisel.h"
+#include "Environment.h"
 #include "graphics\grtexture.h"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -62,9 +63,12 @@ protected:
 private:
 	void DrawCylinder();
 	void DrawChisel();
+	void DrawEnvironment();
 
     bool m_wireframe;
-
+	CGrTexture m_wood;
+	CGrTexture m_wood_leg;
+	CGrTexture m_wood_holder;
 	UINT m_spintimer;
 	double m_spinangle;
 	int m_spinindex;
@@ -75,6 +79,7 @@ private:
 	CGrTexture	m_woodgrain;
 
 	CChisel		m_chisel;
+	CEnvironment m_environment;
 };
 
 /////////////////////////////////////////////////////////////////////////////

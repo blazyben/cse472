@@ -17,6 +17,13 @@ static char THIS_FILE[] = __FILE__;
 
 CChildView::CChildView()
 {
+	m_wood.LoadFile(L"textures/wood.bmp");
+	m_wood_leg.LoadFile(L"textures/wood_leg.bmp");
+	m_wood_holder.LoadFile(L"textures/wood_holder.bmp");
+	m_environment.SetTexture(&m_wood);
+	m_environment.SetTexture_Leg(&m_wood_leg);
+	m_environment.SetTexture_Holder(&m_wood_holder);
+
 	m_wireframe = false;
     m_camera.Set(15, 10, 30, 0, 0, 0, 0, 1, 0);
 
@@ -25,7 +32,7 @@ CChildView::CChildView()
 	m_spinindex = 0;
 
     SetDoubleBuffer(true);
-	
+
 	m_woodgrain.LoadFile(L"textures/real_woodgrain.jpg");
 	m_cylinder.SetTexture(&m_woodgrain);
 }
@@ -117,6 +124,11 @@ void CChildView::OnGLDraw(CDC *pDC)
 	DrawCylinder();
 	glPopMatrix();
 
+	glPushMatrix();
+	glTranslated(-10,-7, -15);
+	DrawEnvironment();
+	glPopMatrix();
+
     glFlush();
 }
 
@@ -168,6 +180,7 @@ void CChildView::DrawCylinder()
     glPushMatrix();
 
     glRotated(m_spinangle, 1, 0, 0);
+
     m_cylinder.Draw();
 
     glPopMatrix();
@@ -176,12 +189,14 @@ void CChildView::DrawCylinder()
 void CChildView::DrawChisel()
 {
 	glPushMatrix();
-
 	m_chisel.Draw();
-
 	glPopMatrix();
 }
 
+void CChildView::DrawEnvironment()
+{
+	m_environment.Draw();
+}
 void CChildView::OnStepSpin() 
 {
     if(m_spintimer)
@@ -243,66 +258,3 @@ BOOL CChildView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 
     return COpenGLWnd::OnMouseWheel(nFlags, zDelta, pt);
 }
-
-//
-//        Name : CChildView::DrawFunky()
-// Description : Draw a funky object.
-//
-
-/*
-void CChildView::DrawFunky(void)
-{
-	GLdouble d[] = {0, 8, -5};
-    GLdouble a[] = {5, 5.5, 2};
-    GLdouble b[] = {-3.7, 2, -3.3};
-    GLdouble c[] = {3.5, -2.3, 1.1};
-
-	GLdouble ab[] = {b[0] - a[0], b[1] - a[1], b[2] - a[2]};
-	GLdouble ad[] = {d[0] - a[0], d[1] - a[1], d[2] - a[2]};
-	GLdouble ac[] = {c[0] - a[0], c[1] - a[1], c[2] - a[2]};
-	GLdouble db[] = {b[0] - d[0], b[1] - d[1], b[2] - d[2]};
-	GLdouble dc[] = {c[0] - d[0], c[1] - d[1], c[2] - d[2]};
-
-	GLdouble abxac[3];
-	normal(ab,ac,abxac);
-    glNormal3d(abxac[0], abxac[1], abxac[2]);
-    
-	// Front
-    glBegin(GL_POLYGON);
-        glVertex3dv(a);
-        glVertex3dv(b);
-        glVertex3dv(c);
-    glEnd();
-
-	GLdouble adxab[3];
-	normal(ad,ab,adxab);
-	glNormal3d(adxab[0], adxab[1], adxab[2]);
-
-    // Sides
-    glBegin(GL_POLYGON);
-        glVertex3dv(a);
-        glVertex3dv(d);
-        glVertex3dv(b);
-    glEnd();
-
-	GLdouble dcxdb[3];
-	normal(dc,db,dcxdb);
-	glNormal3d(dcxdb[0], dcxdb[1], dcxdb[2]);
-
-    glBegin(GL_POLYGON);
-        glVertex3dv(b);
-        glVertex3dv(d);
-        glVertex3dv(c);
-    glEnd();
-
-	GLdouble acxad[3];
-	normal(ac,ad,acxad);
-	glNormal3d(acxad[0], acxad[1], acxad[2]);
-
-    glBegin(GL_POLYGON);
-        glVertex3dv(c);
-        glVertex3dv(d);
-        glVertex3dv(a);
-    glEnd();
-
-} */
