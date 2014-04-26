@@ -24,7 +24,8 @@ private:
 	CGrTexture* m_wood_texture;
 	CGrTexture* m_wood_holder;
 	CGrTexture* m_wood_texture_leg;
-	CCylinder   m_cylinder;
-	CCylinder   m_cylinder_small;
+
+	CCylinder   m_cylinder_left;
+	CCylinder   m_cylinder_right;
 };
 

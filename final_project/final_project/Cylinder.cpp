@@ -15,7 +15,7 @@ CCylinder::CCylinder(void)
 {
 	m_radius = 3;
 	m_length = 50;
-	m_lengthSteps = 50;
+	m_lengthSteps = m_length;
 	m_circumSteps = 50;
 
 	InitRings();

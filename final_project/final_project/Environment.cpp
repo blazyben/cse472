@@ -6,7 +6,14 @@
 
 CEnvironment::CEnvironment(void)
 {
-	
+	m_cylinder_left.SetLength(4.8);
+	m_cylinder_left.SetRadius(.5);
+	m_cylinder_left.SetCircumSteps(5);
+	m_cylinder_left.InitRings();
+	m_cylinder_right.SetLength(3);
+	m_cylinder_right.SetRadius(.5);
+	m_cylinder_right.SetCircumSteps(5);
+	m_cylinder_right.InitRings();
 }
 
 
@@ -16,20 +23,20 @@ CEnvironment::~CEnvironment(void)
 
 void CEnvironment::Draw()
 {
+	if(m_wood_holder != NULL)
+    {
+        glEnable(GL_TEXTURE_2D);
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+        glBindTexture(GL_TEXTURE_2D, m_wood_holder->TexName()); 
+	}
 
-	glEnable(GL_TEXTURE_2D);
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    glBindTexture(GL_TEXTURE_2D, m_wood_holder->TexName()); 
 	Table();
 	glDisable(GL_TEXTURE_2D);
-
 	glEnable(GL_TEXTURE_2D);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     glBindTexture(GL_TEXTURE_2D, m_wood_texture->TexName()); 
 	Holder();
 	glDisable(GL_TEXTURE_2D);
-	
-
 }
 
 void CEnvironment::Table()
@@ -57,44 +64,26 @@ void CEnvironment::Holder()
 {
 	const double RED[] = {0.7, 0.0, 0.0};
 
-	
-	
 	glPushMatrix();
-
-	
 	
 	glEnable(GL_TEXTURE_2D);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     glBindTexture(GL_TEXTURE_2D, m_wood_texture->TexName()); 
 	glTranslated(1.5,6.5,15);
-	//m_cylinder.SetLength(4);
-	//m_cylinder.SetRadius(5);
-	//m_cylinder.InitRings();
-    //m_cylinder.Draw();
 	glTranslated(-1.5,-6.4,-5);
 	Box(7, 9.5, 10, RED);
 
 	glTranslated(5.3,6.5,5);
-	m_cylinder_small.SetLength(4.8);
-	m_cylinder_small.SetRadius(.5);
-	m_cylinder_small.InitRings();
-	m_cylinder_small.Draw();
-
+	m_cylinder_left.Draw();
 	glTranslated(1.7,-6.5,-5);
 	Box(55, 3, 10, RED);
 	glTranslated(55,2,0);
 	Box(2, 8, 10, RED);
 	glTranslated(-3,5,5);
-	m_cylinder_small.SetLength(3);
-	m_cylinder_small.SetRadius(.5);
-	m_cylinder_small.InitRings();
-	m_cylinder_small.Draw();
+	m_cylinder_right.Draw();
 
-	
 	glDisable(GL_TEXTURE_2D);
     glPopMatrix();
-	
-
 }
 
 inline void CEnvironment::Quad(GLdouble *v1, GLdouble *v2, GLdouble *v3, GLdouble *v4)
