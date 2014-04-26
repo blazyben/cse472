@@ -136,7 +136,6 @@ void CChildView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		break;
 	case VK_DOWN:
 		m_chisel.SetDepth(m_chisel.Depth()+.1);
-		m_cylinder.Deform(m_chisel.Position(),m_chisel.Depth(),m_spinindex);
 		Invalidate();
 		break;
 	case VK_LEFT:
