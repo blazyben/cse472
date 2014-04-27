@@ -11,8 +11,8 @@ public:
 	CCylinder(void);
 	virtual ~CCylinder(void);
 
-	void SetTexture(CGrTexture *texture) {m_texture = texture;}
-    CGrTexture *GetTexture() {return m_texture;}
+	void SetCapTexture(CGrTexture *texture) {m_captexture = texture;}
+	void SetCylinderTexture(CGrTexture *texture) {m_cylindertexture = texture;}
 	double CircumSteps() {return m_circumSteps;}
 
 	void Draw();
@@ -32,6 +32,7 @@ private:
 
 	std::vector<std::vector<segment>> rings;
 
-	CGrTexture* m_texture;
+	CGrTexture* m_captexture;
+	CGrTexture* m_cylindertexture;
 };
 

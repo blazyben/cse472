@@ -77,6 +77,7 @@ private:
 
     CCylinder   m_cylinder;
 	CGrTexture	m_woodgrain;
+	CGrTexture	m_woodrings;
 
 	CChisel		m_chisel;
 	CEnvironment m_environment;

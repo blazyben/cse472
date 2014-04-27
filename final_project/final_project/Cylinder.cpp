@@ -11,7 +11,7 @@ using namespace std;
 // Based heavily off of CTorus code
 
 CCylinder::CCylinder(void)
-	: m_texture(NULL)
+	: m_captexture(NULL), m_cylindertexture(NULL)
 {
 	m_radius = 3;
 	m_length = 50;
@@ -74,11 +74,11 @@ void normal(double *v1, double *v2, double *normal)
 
 void CCylinder::Draw()
 {
-	if(m_texture != NULL)
+	if(m_cylindertexture != NULL)
     {
         glEnable(GL_TEXTURE_2D);
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-        glBindTexture(GL_TEXTURE_2D, m_texture->TexName()); 
+        glBindTexture(GL_TEXTURE_2D, m_cylindertexture->TexName()); 
 	}
 
 	for (int i=0; i<rings.size()-1; i++) {
@@ -115,17 +115,44 @@ void CCylinder::Draw()
 
 	glDisable(GL_TEXTURE_2D);
 
+	if(m_captexture != NULL)
+    {
+        glEnable(GL_TEXTURE_2D);
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+        glBindTexture(GL_TEXTURE_2D, m_captexture->TexName()); 
+	}
+
 	glBegin(GL_POLYGON);
 	glNormal3d(-1, 0, 0);
 	for (int i=0; i<rings[0].size(); i++) {
+		double tex_x = rings[0][i].m_bottom.m_z/(2.*m_radius)+0.5;
+		double tex_y = rings[0][i].m_bottom.m_y/(2.*m_radius)+0.5;
+
+		glTexCoord2f(tex_x,tex_y);
 		glVertex3f(rings[0][i].m_bottom.m_x,rings[0][i].m_bottom.m_y,rings[0][i].m_bottom.m_z);
+
+		tex_x = rings[0][i].m_top.m_z/(2.*m_radius)+0.5;
+		tex_y = rings[0][i].m_top.m_y/(2.*m_radius)+0.5;
+
+		glTexCoord2f(tex_x,tex_y);
 		glVertex3f(rings[0][i].m_top.m_x,rings[0][i].m_top.m_y,rings[0][i].m_top.m_z);
 	}
 	glEnd();
 	glBegin(GL_POLYGON);
 	glNormal3d(1, 0, 0);
 	for (int i=rings[rings.size()-1].size()-1; i>=0; i--) {
+		double tex_x = rings[rings.size()-1][i].m_bottom.m_z/(2.*m_radius)+0.5;
+		double tex_y = rings[rings.size()-1][i].m_bottom.m_y/(2.*m_radius)+0.5;
+
+		glTexCoord2f(tex_x,tex_y);
+
 		glVertex3f(rings[rings.size()-1][i].m_bottom.m_x,rings[rings.size()-1][i].m_bottom.m_y,rings[rings.size()-1][i].m_bottom.m_z);
+
+		tex_x = rings[rings.size()-1][i].m_top.m_z/(2.*m_radius)+0.5;
+		tex_y = rings[rings.size()-1][i].m_top.m_y/(2.*m_radius)+0.5;
+
+		glTexCoord2f(tex_x,tex_y);
+
 		glVertex3f(rings[rings.size()-1][i].m_top.m_x,rings[rings.size()-1][i].m_top.m_y,rings[rings.size()-1][i].m_top.m_z);
 	}
 	

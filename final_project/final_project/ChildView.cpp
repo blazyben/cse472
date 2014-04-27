@@ -34,7 +34,9 @@ CChildView::CChildView()
     SetDoubleBuffer(true);
 
 	m_woodgrain.LoadFile(L"textures/real_woodgrain.jpg");
-	m_cylinder.SetTexture(&m_woodgrain);
+	m_woodrings.LoadFile(L"textures/wood_rings.jpg");
+	m_cylinder.SetCapTexture(&m_woodrings);
+	m_cylinder.SetCylinderTexture(&m_woodgrain);
 }
 
 CChildView::~CChildView()
